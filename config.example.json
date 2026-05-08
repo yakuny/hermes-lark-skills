@@ -1,0 +1,13 @@
+{
+  "apps": [
+    {
+      "appId": "cli_xxxxxxxxxx",
+      "appSecret": "YOUR_APP_SECRET_HERE",
+      "brand": "feishu",
+      "lang": "zh",
+      "defaultAs": "bot",
+      "strictMode": "bot",
+      "users": null
+    }
+  ]
+}

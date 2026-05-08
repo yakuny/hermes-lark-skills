@@ -1,0 +1,9 @@
+# lark-cli 配置文件（包含密钥，不要提交）
+.lark-cli/
+config.json
+
+# 系统文件
+.DS_Store
+*.swp
+*.swo
+*~
