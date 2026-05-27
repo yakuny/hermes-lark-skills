@@ -10,7 +10,7 @@
 - 顶层统一使用：`type` + `name` + 类型特有字段。
 - 所有字段类型都支持可选 `description`；支持纯文本，也支持 Markdown 链接。
 - 不要使用旧结构：`field_name`、`property`、`ui_type`、数字枚举 `type`。
-- `+field-update` 使用同样的字段 JSON 结构，但语义是 `PUT`；建议先 `+field-get` 再按目标状态全量提交。
+- `+field-update` 使用同样的字段 JSON 结构，但语义是 `PUT`；这是高风险写入操作，建议先 `+field-get` 再按目标状态全量提交，并带 `--yes`。
 - `type=formula` 或 `type=lookup` 创建/更新前，必须先读对应 guide。
 
 推荐示例：
@@ -212,6 +212,7 @@
 - `dynamic_options_source.table_id` 填来源表 id 或表名
 - `dynamic_options_source.field_id` 填来源字段 id 或字段名
 - `dynamic_options_source` 仅创建支持；更新已有字段时不要传
+- 引用选项条件 / 级联筛选条件：这个功能在 Base 前端支持，属于 UI-only 属性，OpenAPI 里不支持，CLI 不能读取、创建或更新；不要根据接口返回缺失判断未配置
 
 ```json
 {
@@ -310,6 +311,7 @@
 - `bidirectional` 默认 `false`
 - `bidirectional=true` 时，会在被关联表自动创建一个反向关联字段。任一侧记录的关联关系发生变更时，另一侧对应记录会自动同步更新
 - `bidirectional_link_field_name` 仅在 `bidirectional=true` 时使用
+- 关联字段筛选：这个功能在 Base 前端支持，属于 UI-only 属性，OpenAPI 里不支持，CLI 不能读取、创建或更新；不要根据接口返回缺失判断未配置
 
 ```json
 {
@@ -464,6 +466,8 @@
 { "type": "location", "name": "位置" }
 ```
 
+写入必须使用 `{lng,lat}`。location 读回会包含 `full_address`；筛选和 `location -> text` 类型转换按 `full_address` 字符串处理，只有公式能访问坐标。
+
 ```json
 { "type": "checkbox", "name": "完成" }
 ```
@@ -471,9 +475,13 @@
 ## 4. 创建与更新
 
 - `+field-create`：按目标字段配置直接构造 `--json`。
-- `+field-update`：使用同样的 JSON 结构，但语义是 `PUT`；建议先 `+field-get`，再按目标完整状态提交。
+- `+field-update`：使用同样的 JSON 结构，但语义是 `PUT`；建议先 `+field-get`，再按目标完整状态提交，并带 `--yes`。
 
-## 5. 易错点
+## 5. 暂不支持字段
+
+Object（对象字段）、Button（按钮字段）、Stage（流程字段）暂时都没有被 CLI 支持。这些字段会展示为 `not_support` 字段并被保护：不允许修改，不允许读取内容。
+
+## 6. 易错点
 
 - `select` 只有一个类型；不要写 `single_select` / `multi_select`，用 `multiple` 控制是否多选。
 - `number` 的精度、货币、进度、评分配置都放在 `style` 下，不要写顶层 `precision`。

@@ -1,12 +1,15 @@
 # Hermes Lark Skills
 
-> Hermes Agent 飞书 lark-cli 技能包 — 24 个 Lark API Skills，开箱即用
+> Hermes Agent 飞书 lark-cli 技能包 — 26 个 Lark API Skills，开箱即用
+>
+> 基于 [larksuite/cli](https://github.com/larksuite/cli) 官方 skills 同步，适配 Hermes Agent 使用。
 
 ## 📦 包含的 Skills
 
 | Skill | 功能 |
 |-------|------|
 | `lark-approval` | 审批流程 |
+| `lark-apps` | 应用管理 |
 | `lark-attendance` | 考勤打卡 |
 | `lark-base` | 多维表格 |
 | `lark-calendar` | 日历日程 |
@@ -26,6 +29,7 @@
 | `lark-slides` | 幻灯片 |
 | `lark-task` | 任务 |
 | `lark-vc` | 视频会议 |
+| `lark-vc-agent` | 视频会议 Agent |
 | `lark-whiteboard` | 白板 |
 | `lark-wiki` | 知识库 |
 | `lark-workflow-meeting-summary` | 会议纪要工作流 |
@@ -36,7 +40,7 @@
 ### 1. 安装 lark-cli
 
 ```bash
-npm install -g lark-cli
+npm install -g @larksuite/cli
 ```
 
 ### 2. 配置密钥
